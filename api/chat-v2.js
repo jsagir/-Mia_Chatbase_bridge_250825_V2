@@ -20,9 +20,18 @@ module.exports = async (req, res) => {
   }
   
   try {
-    // Use environment variables in production, fallback to hardcoded for testing
-    const CHATBASE_API_KEY = process.env.CHATBASE_API_KEY || '8171b8f9-aac3-4b77-8175-226cc23e4d9b';
-    const CHATBOT_ID = process.env.CHATBOT_ID || 'MNPuL5RkxOrS4SeEetwE6';
+    // ONLY use environment variables - no hardcoded values
+    const CHATBASE_API_KEY = process.env.CHATBASE_API_KEY;
+    const CHATBOT_ID = process.env.CHATBOT_ID;
+    
+    if (!CHATBASE_API_KEY || !CHATBOT_ID) {
+      return res.status(500).json({
+        error: 'Configuration error',
+        message: 'Environment variables not set. Please configure CHATBASE_API_KEY and CHATBOT_ID in Vercel.',
+        version: 'v2-no-hmac',
+        timestamp: new Date().toISOString()
+      });
+    }
     
     const { conversation } = req.body;
     

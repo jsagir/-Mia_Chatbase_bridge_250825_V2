@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
   }
   
   try {
-    const CHATBASE_API_KEY = process.env.CHATBASE_API_KEY || '8171b8f9-aac3-4b77-8175-226cc23e4d9b';
+    const CHATBASE_API_KEY = process.env.CHATBASE_API_KEY || '41d825f9-ed60-40ce-ba5e-ff9e5cf2f21d';
     const CHATBOT_ID = process.env.CHATBOT_ID || 'MNPuL5RkxOrS4SeEetwE6';
     
     const { message, conversation } = req.body;
