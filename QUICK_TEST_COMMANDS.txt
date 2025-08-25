@@ -1,0 +1,108 @@
+=====================================
+QUICK TEST COMMANDS FOR NOLAN
+=====================================
+
+REPLACE "YOUR-APP" WITH YOUR ACTUAL VERCEL URL!
+Example: mia-chatbase-bridge-250825-v2
+
+=====================================
+TEST 1: CHECK DEPLOYMENT
+=====================================
+curl https://YOUR-APP.vercel.app/api/debug
+
+
+=====================================
+TEST 2: SIMPLE CHAT TEST
+=====================================
+Windows:
+curl -X POST https://YOUR-APP.vercel.app/api/chat-v2 ^
+  -H "Content-Type: application/json" ^
+  -d "{\"conversation\": [{\"role\": \"user\", \"content\": \"Hello\"}]}"
+
+Mac/Linux:
+curl -X POST https://YOUR-APP.vercel.app/api/chat-v2 \
+  -H "Content-Type: application/json" \
+  -d '{"conversation": [{"role": "user", "content": "Hello"}]}'
+
+
+=====================================
+TEST 3: PROTO PERSONA INTEGRATION TEST
+=====================================
+Windows:
+curl -X POST https://YOUR-APP.vercel.app/api/chat-v2 ^
+  -H "Content-Type: application/json" ^
+  -d "{\"conversation\": [{\"role\": \"user\", \"content\": \"Proto Persona test\"}]}"
+
+
+=====================================
+TEST 4: MULTI-TURN CONVERSATION
+=====================================
+Windows:
+curl -X POST https://YOUR-APP.vercel.app/api/chat-v2 ^
+  -H "Content-Type: application/json" ^
+  -d "{\"conversation\": [{\"role\": \"user\", \"content\": \"My name is Nolan\"}, {\"role\": \"assistant\", \"content\": \"Nice to meet you!\"}, {\"role\": \"user\", \"content\": \"What is my name?\"}]}"
+
+
+=====================================
+TEST 5: CHECK CORS HEADERS
+=====================================
+curl -I https://YOUR-APP.vercel.app/api/chat-v2
+
+
+=====================================
+JAVASCRIPT TEST (Browser Console)
+=====================================
+fetch('https://YOUR-APP.vercel.app/api/chat-v2', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({
+    conversation: [{role: 'user', content: 'Test from browser'}]
+  })
+})
+.then(r => r.json())
+.then(d => console.log('Response:', d.response));
+
+
+=====================================
+ENVIRONMENT VARIABLES TO ADD IN VERCEL
+=====================================
+CHATBASE_API_KEY = 8171b8f9-aac3-4b77-8175-226cc23e4d9b
+CHATBOT_ID = MNPuL5RkxOrS4SeEetwE6
+
+
+=====================================
+EXPECTED SUCCESSFUL RESPONSES
+=====================================
+
+Debug endpoint should show:
+{
+  "environmentVariables": {
+    "CHATBASE_API_KEY": "Set",
+    "CHATBOT_ID": "Set"
+  }
+}
+
+Chat endpoint should show:
+{
+  "response": "Bot's response here",
+  "version": "v2-no-hmac",
+  "timestamp": "2024-12-25T..."
+}
+
+
+=====================================
+IF YOU SEE THESE, IT'S WORKING!
+=====================================
+✅ "response": "Some text from the bot"
+✅ "version": "v2-no-hmac"
+✅ No mention of user_id or user_hash
+✅ Status code 200
+
+
+=====================================
+IF YOU SEE THESE, SOMETHING'S WRONG:
+=====================================
+❌ "Unrecognized key(s) in object: 'user_id'"
+❌ "error": "Failed to get response"
+❌ Status code 500
+❌ "CHATBASE_API_KEY": "Not Set"
