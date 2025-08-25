@@ -183,12 +183,3 @@ print(ask_mia('Hello from Proto!'))
 
 ---
 
-## 📞 Contact
-
-**GitHub**: https://github.com/jsagir/-Mia_Chatbase_bridge_250825_V2  
-**Issues**: Create an issue if you encounter any problems  
-**Email**: jsagir@gmail.com
-
----
-
-*Built for Proto Persona by Jonathan Sagir*
